@@ -41,9 +41,8 @@ function App() {
   }
 
   function onContactSave(obj){
-    debugger
     if(Object.getOwnPropertyNames(obj).indexOf("id") === -1){
-      obj["id"] = userList.length + 1;
+      obj["id"] = (new Date()).getTime();
       userList.push(obj);
       setUserList(userList);
     } else {      

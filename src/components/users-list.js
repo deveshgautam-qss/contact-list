@@ -37,13 +37,14 @@ function UsersList(props){
                         let listCharJsx = "";
                         if(user.firstname.split("")[0].toLowerCase() !== listPrevChar.toLowerCase()){
                             listPrevChar = user.firstname.split("")[0];
-                            listCharJsx = <li className="not-selected"> {listPrevChar.toUpperCase()}</li>                            
+                            listCharJsx = <li key={(new Date()).getTime()} data-id={(new Date()).getTime()} className="not-selected"> {listPrevChar.toUpperCase()}</li>                            
                         }
                         
                         return [
                             listCharJsx,
                             <li 
                                 className={user.id === props.selectedUser.id ? 'selected' : ''} 
+                                data-id={user.id}
                                 key={user.id} 
                                 style={{
                                     listStyle: "none", 
