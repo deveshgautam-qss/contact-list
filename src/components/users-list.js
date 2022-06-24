@@ -3,7 +3,7 @@ import { Button } from "react-bootstrap";
 
 function UsersList(props){
     const [userList, setUserList] = useState(props.userList);
-    var listPrevChar = "";
+    var listPrevChar = [];
 
     function onAddContactButton(){
         props.onAddContactButton();
@@ -24,6 +24,8 @@ function UsersList(props){
         setUserList(props.userList);
     }
 
+    console.log(userList);
+
     return (
         <React.Fragment>
             <div id='search-box'>
@@ -31,13 +33,13 @@ function UsersList(props){
             </div>
             <div className='user-list mt-2 mb-2 border' style={{height: "450px"}}>
                 <ul style={{padding: "0", margin: "0"}}>
-                {                    
+                {
                     userList.length ? 
-                    userList.sort((a,b) => (a.firstname > b.firstname) ? 1 : ((b.firstname > a.firstname) ? -1 : 0)).map(user => {
+                    userList.sort((a,b) => (a.firstname.toLowerCase() > b.firstname.toLowerCase()) ? 1 : ((b.firstname.toLowerCase() > a.firstname.toLowerCase()) ? -1 : 0)).map(user => {
                         let listCharJsx = "";
-                        if(user.firstname.split("")[0].toLowerCase() !== listPrevChar.toLowerCase()){
-                            listPrevChar = user.firstname.split("")[0];
-                            listCharJsx = <li key={(new Date()).getTime()} data-id={(new Date()).getTime()} className="not-selected"> {listPrevChar.toUpperCase()}</li>                            
+                        if(!listPrevChar.includes(user.firstname.split("")[0].toLowerCase())){
+                            listPrevChar.push(user.firstname.split("")[0].toLowerCase());
+                            listCharJsx = <li key={(new Date()).getTime()} data-id={(new Date()).getTime()} className="not-selected"> {user.firstname.split("")[0].toUpperCase()}</li>                            
                         }
                         
                         return [
